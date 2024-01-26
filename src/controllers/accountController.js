@@ -62,7 +62,7 @@ class AccountController {
                 expireIn: process.env.JWT_EXPIRE_IN
             }
             let token = createToken(payload)
-            findEmail.lassLogin = Date.now()
+            findEmail.lastLogin = Date.now()
             await findEmail.save()
 
             return res.status(200).json({
@@ -81,9 +81,44 @@ class AccountController {
         }
     }
 
-    static getMatThu = async (req, res) => {
+    static getProfile = async (req, res) => {
         try {
-            return res.status(200).json('OK');
+            const findUser = await User.findById(req.user.userId, { password: 0, lastLogin: 0 });
+
+            if (!findUser) {
+                return res.status(400).json('Người dùng không tồn tại!');
+            }
+
+            return res.status(200).json({
+                message: 'OK',
+                data: findUser
+            });
+        } catch (e) {
+            return res.status(500).json(e.message);
+        }
+    }
+
+    static updateProfile = async (req, res) => {
+        try {
+            if (!req.body.email || !req.body.name) {
+                return res.status(500).json('Thiếu các thông tin bắt buộc');
+            }
+
+            const findUser = await User.findById(req.user.userId, { password: 0, lastLogin: 0 });
+
+            if (!findUser) {
+                return res.status(400).json('Người dùng không tồn tại!');
+            }
+
+            findUser.email = req.body.email;
+            findUser.name = req.body.name;
+            findUser.address = req.body.address;
+            await findUser.save();
+
+            return res.status(200).json({
+                statusCode: 200,
+                message: 'Cập nhật profile thành công',
+            });
         } catch (e) {
             return res.status(500).json(e.message);
         }

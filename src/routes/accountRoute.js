@@ -6,8 +6,8 @@ const route = express.Router();
 
 route.post('/signup', AccountController.signup);
 route.post('/login', AccountController.login);
-
-route.get('/matThu', verifyToken, AccountController.getMatThu);
+route.get('/profile', verifyToken, AccountController.getProfile);
+route.put('/profile', verifyToken, AccountController.updateProfile);
 
 
 export default route;

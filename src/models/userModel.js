@@ -7,7 +7,9 @@ const UserModel = new mongoose.Schema({
     name: { type: String, require: true },
     role: { type: String, default: userRole.user, enum: userRole },
     createAt: { type: Date, default: Date.now },
-    lassLogin: { type: Date }
+    lastLogin: { type: Date },
+    matThu: { type: Number, default: 0 },
+    address: { type: String }
 })
 
 module.exports = mongoose.model('User', UserModel);

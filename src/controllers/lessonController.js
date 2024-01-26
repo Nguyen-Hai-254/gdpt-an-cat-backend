@@ -38,7 +38,7 @@ class LessonController {
                 level: req.body.level,
                 chapter: req.body.chapter,
                 content: req.body.content,
-                order: findLesson.length
+                order: findLesson.length + 1
             })
 
             return res.status(200).json({
