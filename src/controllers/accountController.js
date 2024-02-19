@@ -1,6 +1,7 @@
 import User from "../models/userModel";
 import bcrypt from "bcrypt";
 import { createToken } from "../ultis/createToken"
+import { userRole } from "../ultis/enum";
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -119,6 +120,41 @@ class AccountController {
                 statusCode: 200,
                 message: 'Cập nhật profile thành công',
             });
+        } catch (e) {
+            return res.status(500).json(e.message);
+        }
+    }
+
+    static getAllUser = async (req, res) => {
+        try {
+            const skip = req.query.skip ? req.query.skip : 0;
+            const limit = req.query.limit ? req.query.limit : 10;
+            const roleRequest = req.query.role ?? userRole.user;
+            const order = req.query.order ?? null;
+
+
+            let findUser, count;
+
+            if (order === 'matThu') {
+                findUser = await User.find({ role: roleRequest }, { password: 0 }).sort({ matThu: -1 }).skip(skip).limit(limit);
+                count = await User.countDocuments({ role: roleRequest });
+            }
+            else if (order === 'createAt') {
+                findUser = await User.find({ role: roleRequest }, { password: 0 }).sort({ createAt: 1 }).skip(skip).limit(limit);
+                count = await User.countDocuments({ role: roleRequest });
+            }
+            else {
+                findUser = await User.find({ role: roleRequest }, { password: 0 }).sort({ lastLogin: -1 }).skip(skip).limit(limit);
+                count = await User.countDocuments({ role: roleRequest });
+            }
+
+            return res.status(200).json({
+                message: 'OK',
+                data: {
+                    data: findUser,
+                    count: count
+                }
+            })
         } catch (e) {
             return res.status(500).json(e.message);
         }
