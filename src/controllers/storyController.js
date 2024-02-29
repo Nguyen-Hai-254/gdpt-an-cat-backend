@@ -6,7 +6,7 @@ class StoryController {
             if (!req.body.name || !req.body.link || !req.body.image) {
                 return res.status(400).json("Thiếu tên câu chuyện, link hoặc ảnh cho truyện!")
             }
-            console.log(req.body.image)
+            
             let findStory = await Story.find({
                 $or: [{
                     name: req.body.name
