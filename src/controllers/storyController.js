@@ -6,7 +6,7 @@ class StoryController {
             if (!req.body.name || !req.body.link || !req.body.image) {
                 return res.status(400).json("Thiếu tên câu chuyện, link hoặc ảnh cho truyện!")
             }
-            
+
             let findStory = await Story.find({
                 $or: [{
                     name: req.body.name
@@ -38,7 +38,7 @@ class StoryController {
 
     static getAllStory = async (req, res) => {
         try {
-            let findStory = await Story.find({});
+            let findStory = await Story.find({}, { content: 0 });
 
             return res.status(200).json({
                 statusCode: 200,

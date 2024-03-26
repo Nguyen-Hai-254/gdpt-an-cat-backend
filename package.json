@@ -6,9 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node src/index.js",
-    "new_start": "cross-env NODE_OPTIONS='--experimental-specifier-resolution=node' & node src/index.js",
+    "new_start": "pm2 start npm -- run server",
     "build": "webpack --config webpack.build.js --mode production",
-    "deloy": "node ./build/main.js"
+    "deloy": "node ./build/main.js",
+    "start_pm2": "pm2 start --interpreter babel-node src/index.js",
+    "start_2": "pm2 start ecosystem.config.js",
+    "build_2": "babel src/ -d dist/",
+    "start_3": "npm run build_2 & start dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -24,14 +28,19 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "multer": "^1.4.5-lts.1",
+    "pm2": "^5.3.1",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.6",
-    "@babel/node": "^7.22.19",
+    "@babel/core": "^7.24.0",
+    "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.23.6",
-    "nodemon": "^3.0.2"
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "regenerator-runtime": "^0.14.1"
   }
 }
