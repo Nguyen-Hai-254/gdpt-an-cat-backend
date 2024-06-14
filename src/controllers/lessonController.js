@@ -143,7 +143,7 @@ class LessonController {
             const limit = req.query.limit ? req.query.limit : 10;
             const level = req.query.level ?? undefined;
             const chapter = req.query.chapter ?? undefined;
-            
+
             let findLesson, count;
             if (!level && !chapter) {
                 findLesson = await Lesson.find({ type: 'Tu Học' }, { content: 0 }).sort({ level: 1, chapter: 1, order: 1, title: 1 }).skip(skip).limit(limit);
@@ -161,7 +161,7 @@ class LessonController {
                 findLesson = await Lesson.find({ type: 'Tu Học', level: level, chapter: chapter }, { content: 0 }).sort({ order: 1, title: 1 }).skip(skip).limit(limit);
                 count = await Lesson.countDocuments({ type: 'Tu Học', level: level, chapter: chapter });
             }
-            
+
             return res.status(200).json({
                 message: 'OK',
                 data: {

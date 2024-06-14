@@ -20,26 +20,18 @@
 
 module.exports = {
     apps: [{
-        name: 'my_server',
-        script: './src/index.js',
-        "log_date_format": "YYYY-MM-DD HH:mm Z",
-
-        // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-        // args: 'one two',
-        // instances: '1',
-        autorestart: true,
+        name: 'my-server',
+        script: 'npm',
+        args: 'run server',
+        exec_mode: 'fork',
         watch: true,
-        exec_interpreter: "babel-node",
-        exec_mode: "fork",
-        max_restarts: 10,
-        max_memory_restart: '1G',
+        ignore_watch: ['node_modules'],
         env: {
             NODE_ENV: 'development'
         },
         env_production: {
             NODE_ENV: 'production'
-        },
-        // exec_mode: 'cluster'
+        }
     }],
 };
 
