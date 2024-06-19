@@ -11,21 +11,25 @@ require('dotenv').config();
 // import  connectDB  from "./config/connectDB.js";
 
 var app = (0, _express["default"])();
-// app.use(cors({ credentials: true, origin: true }));
-
-var corsOptions = {
-  origin: 'https://gdpt-ancat.netlify.app',
+app.use((0, _cors["default"])({
   credentials: true,
-  optionSuccessStatus: 200
-};
-app.use((0, _cors["default"])(corsOptions));
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', "https://gdpt-ancat.netlify.app");
-  res.header('Access-Control-Allow-Headers', true);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  next();
-});
+  origin: true
+}));
+
+// const corsOptions = {
+//     origin: 'https://gdpt-ancat.netlify.app',
+//     credentials: true,
+//     optionSuccessStatus: 200
+// }
+
+// app.use(cors(corsOptions));
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', "https://gdpt-ancat.netlify.app");
+//     res.header('Access-Control-Allow-Headers', true);
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     next();
+// });
 
 // app.use(cookieParser());
 app.use(_bodyParser["default"].json({

@@ -37,7 +37,7 @@ class LessonController {
                 type: req.body.type,
                 level: req.body.level,
                 chapter: req.body.chapter,
-                content: req.body.content,
+                lesson: req.body.lesson,
                 order: findLesson.length + 1
             })
 
@@ -72,7 +72,7 @@ class LessonController {
                     type: lesson.type,
                     level: lesson.level,
                     chapter: lesson.chapter,
-                    content: lesson.content
+                    lesson: lesson.lesson
                 }
             });
         } catch (e) {
@@ -90,7 +90,7 @@ class LessonController {
 
             const findAllLessonByType = await Lesson.find({
                 level: req.query.level
-            }, { content: 0 }).sort({ order: 1 })
+            }, { lesson: 0 }).sort({ order: 1 })
 
             let data = [];
             typeChapter.map((chapter) => {
@@ -126,7 +126,7 @@ class LessonController {
 
             const findAllLessonByLevel = await Lesson.find({
                 level: req.query.level
-            }, { content: 0, level: 0 })
+            }, { lesson: 0, level: 0 })
 
             return res.status(200).json({
                 message: 'OK',
@@ -146,19 +146,19 @@ class LessonController {
 
             let findLesson, count;
             if (!level && !chapter) {
-                findLesson = await Lesson.find({ type: 'Tu Học' }, { content: 0 }).sort({ level: 1, chapter: 1, order: 1, title: 1 }).skip(skip).limit(limit);
+                findLesson = await Lesson.find({ type: 'Tu Học' }, { lesson: 0 }).sort({ level: 1, chapter: 1, order: 1, title: 1 }).skip(skip).limit(limit);
                 count = await Lesson.countDocuments({ type: 'Tu Học' });
             }
             else if (level && !chapter) {
-                findLesson = await Lesson.find({ type: 'Tu Học', level: level }, { content: 0 }).sort({ chapter: 1, order: 1, title: 1 }).skip(skip).limit(limit);
+                findLesson = await Lesson.find({ type: 'Tu Học', level: level }, { lesson: 0 }).sort({ chapter: 1, order: 1, title: 1 }).skip(skip).limit(limit);
                 count = await Lesson.countDocuments({ type: 'Tu Học', level: level });
             }
             else if (!level && chapter) {
-                findLesson = await Lesson.find({ type: 'Tu Học', chapter: chapter }, { content: 0 }).sort({ level: 1, order: 1, title: 1 }).skip(skip).limit(limit);
+                findLesson = await Lesson.find({ type: 'Tu Học', chapter: chapter }, { lesson: 0 }).sort({ level: 1, order: 1, title: 1 }).skip(skip).limit(limit);
                 count = await Lesson.countDocuments({ type: 'Tu Học', chapter: chapter });
             }
             else {
-                findLesson = await Lesson.find({ type: 'Tu Học', level: level, chapter: chapter }, { content: 0 }).sort({ order: 1, title: 1 }).skip(skip).limit(limit);
+                findLesson = await Lesson.find({ type: 'Tu Học', level: level, chapter: chapter }, { lesson: 0 }).sort({ order: 1, title: 1 }).skip(skip).limit(limit);
                 count = await Lesson.countDocuments({ type: 'Tu Học', level: level, chapter: chapter });
             }
 
@@ -239,7 +239,7 @@ class LessonController {
             findLesson.type = req.body.type;
             findLesson.chapter = req.body.chapter;
             findLesson.level = req.body.level;
-            findLesson.content = req.body.content;
+            findLesson.lesson = req.body.lesson;
             await findLesson.save();
 
             return res.status(200).json({

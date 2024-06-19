@@ -77,7 +77,7 @@ _defineProperty(LessonController, "createLesson", /*#__PURE__*/function () {
             type: req.body.type,
             level: req.body.level,
             chapter: req.body.chapter,
-            content: req.body.content,
+            lesson: req.body.lesson,
             order: findLesson.length + 1
           });
         case 17:
@@ -131,7 +131,7 @@ _defineProperty(LessonController, "getStudyById", /*#__PURE__*/function () {
               type: lesson.type,
               level: lesson.level,
               chapter: lesson.chapter,
-              content: lesson.content
+              lesson: lesson.lesson
             }
           }));
         case 11:
@@ -166,7 +166,7 @@ _defineProperty(LessonController, "getTableOfContentLevel", /*#__PURE__*/functio
           return _lessonModel["default"].find({
             level: req.query.level
           }, {
-            content: 0
+            lesson: 0
           }).sort({
             order: 1
           });
@@ -230,7 +230,7 @@ _defineProperty(LessonController, "getTableOfContentStudy", /*#__PURE__*/functio
           return _lessonModel["default"].find({
             level: req.query.level
           }, {
-            content: 0,
+            lesson: 0,
             level: 0
           });
         case 5:
@@ -272,7 +272,7 @@ _defineProperty(LessonController, "getAllStudy", /*#__PURE__*/function () {
           return _lessonModel["default"].find({
             type: 'Tu Học'
           }, {
-            content: 0
+            lesson: 0
           }).sort({
             level: 1,
             chapter: 1,
@@ -299,7 +299,7 @@ _defineProperty(LessonController, "getAllStudy", /*#__PURE__*/function () {
             type: 'Tu Học',
             level: level
           }, {
-            content: 0
+            lesson: 0
           }).sort({
             chapter: 1,
             order: 1,
@@ -326,7 +326,7 @@ _defineProperty(LessonController, "getAllStudy", /*#__PURE__*/function () {
             type: 'Tu Học',
             chapter: chapter
           }, {
-            content: 0
+            lesson: 0
           }).sort({
             level: 1,
             order: 1,
@@ -350,7 +350,7 @@ _defineProperty(LessonController, "getAllStudy", /*#__PURE__*/function () {
             level: level,
             chapter: chapter
           }, {
-            content: 0
+            lesson: 0
           }).sort({
             order: 1,
             title: 1
@@ -512,7 +512,7 @@ _defineProperty(LessonController, "updateLesson", /*#__PURE__*/function () {
           findLesson.type = req.body.type;
           findLesson.chapter = req.body.chapter;
           findLesson.level = req.body.level;
-          findLesson.content = req.body.content;
+          findLesson.lesson = req.body.lesson;
           _context8.next = 16;
           return findLesson.save();
         case 16:

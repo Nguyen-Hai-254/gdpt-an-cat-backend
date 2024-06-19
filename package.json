@@ -9,7 +9,7 @@
     "start:babel": "babel-node src/index.js",
     "build": "npx babel src -d dist",
     "deploy": "npm run build && pm2-runtime start ecosystem.config.js",
-    "server": "pm2 start dist/index.js"
+    "server": "pm2-runtime start ecosystem.config.js"
   },
   "keywords": [],
   "author": "",
