@@ -22,7 +22,7 @@ module.exports = {
     apps: [{
         name: 'my-server',
         script: 'dist/index.js',
-        args: 'run server',
+        // args: 'run server',
         exec_mode: 'fork',
         watch: false,
         ignore_watch: ['node_modules'],
