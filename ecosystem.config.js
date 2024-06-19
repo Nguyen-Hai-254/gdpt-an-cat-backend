@@ -24,7 +24,7 @@ module.exports = {
         script: 'dist/index.js',
         args: 'run server',
         exec_mode: 'fork',
-        watch: true,
+        watch: false,
         ignore_watch: ['node_modules'],
         env: {
             NODE_ENV: 'development'
